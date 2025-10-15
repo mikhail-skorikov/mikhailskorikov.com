@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en" >
+<head>
+	<!-- 2025-10-15 Wed 09:17 -->
+	<meta charset="UTF-8" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#ff7800" />
+		<meta name="theme-color" content="#ffa348" media="(prefers-color-scheme:dark)" />
+	<title>How to set up email addresses for your own domain for cheap - Mikhail Skorikov</title>
+	<link rel="canonical" href="https://mikhailskorikov.com/domain-emails/" /><link rel="icon" type="image/png" href="https://mikhailskorikov.com/favicon.png" />
+
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://mikhailskorikov.com/apple-touch-icon.png" />
+<style type="text/css">
+	:root {--accent-color: #ff7800;}[data-theme="dark"] {
+			--accent-color: #ffa348;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root:not([data-theme="light"]) {
+				--accent-color: #ffa348;
+			}
+		}</style>
+
+			<link type="text/css" rel="stylesheet" href="https://mikhailskorikov.com/style.css" />
+				<link type="text/css" rel="stylesheet" href="https://mikhailskorikov.com/syntax-theme-light.css" media="(prefers-color-scheme: light)" />
+				<link type="text/css" rel="stylesheet" href="https://mikhailskorikov.com/syntax-theme-dark.css" media="(prefers-color-scheme: dark)" />
+			<script type="text/javascript" defer  src="https://mikhailskorikov.com/closable.js"></script>
+			<script type="text/javascript" defer  src="https://mikhailskorikov.com/copy-button.js"></script>
+			<script type="text/javascript" defer  src="https://mikhailskorikov.com/fuse.js"></script>
+			<script type="text/javascript" defer  src="https://mikhailskorikov.com/search-fuse.js"></script>
+			<script type="text/javascript" defer  src="https://mikhailskorikov.com/theme-switcher.js"></script>
+
+	<meta property="og:site_name" content="Mikhail Skorikov" />
+	<meta property="og:title" content="How to set up email addresses for your own domain for cheap - Mikhail Skorikov" />
+	<meta property="og:url" content="https://mikhailskorikov.com/domain-emails/" />
+	<meta property="og:description" content="Easy (and cheap!) setup guide to your own domain email addresses." /><meta property="og:image" content="https://mikhailskorikov.com/card.png" /><meta property="og:locale" content="en_US" />
+</head>
+
+<body>
+<div id="sidebar">
+			<div></div>
+		</div><main id="main-content">
+		<article><div id="heading"><p>
+				<small>
+					<time datetime=" 2025-09-18T00:00:00+00:00">Published on
+						September 18, 2025</time></small>
+			</p><h1>How to set up email addresses for your own domain for cheap</h1><p>
+				<small><span>By Mikhail Skorikov</span><span> • </span><span>4 minutes read</span><span> • </span></small>
+			</p>
+				<ul class="tags"><li><a class="tag" href="https://mikhailskorikov.com/tags/dns/">DNS</a></li><li><a class="tag" href="https://mikhailskorikov.com/tags/email/">Email</a></li><li><a class="tag" href="https://mikhailskorikov.com/tags/migadu/">Migadu</a></li>
+				</ul>
+	</div>
+
+	<div id="buttons-container"><a id="go-to-top" href="#top" title="Go to Top"><i class="icon"></i></a></div><p>Recently I have noticed that some clients who require emails for their own domain become aghast at the cost of it.</p>
+<p>While most email hosts provide a variety of features to justify the costs and even give some free mailboxes or free trial duration deals to reel clients in, there are some providers which are actually quite worth the costs. The one I am going to talk about is <a href="https://migadu.com">Migadu</a>.</p>
+<p>This hidden gem of a provider has free trials and for a small price of $19 per year, with reasonable limits, you get unlimited (practically) domains and mailboxes for them, with 5 GB storage which is enough for a moderate number of domains and mailboxes. The other pricing plans are even more liberal in how much you can do with it but for a basic setup, $19 per year is pocket change compared to most popular options.</p>
+<p>To set up your own email addresses for your domain, you need to sign up for Migadu and have access to manage your domain’s DNS records.</p>
+<h2 id="step-1-create-domain-in-migadu">Step 1: Create domain in Migadu</h2>
+<p>Once you have signed up for Migadu, log in to your account and under Email Domains, go to New Domain</p>
+<img class="no-hover"alt="This is an image"src="new_domain.png"/>
+<p>Add in your domain name, selecting external nameservers as the default.</p>
+<p>Accept the default addresses (admin, postmaster, abuse) creation as they are part of the email standards, although they’re not required.</p>
+<img class="no-hover"alt="This is an image"src="domain_form.png"/><h2 id="step-2-add-dns-records-to-your-domain">Step 2: Add DNS records to your domain</h2>
+<p>The setup instructions are provided by Migadu when you add your domain to Migadu with values automatically set for you to copy-paste. Go to your domain registrar, and open up its DNS management page.</p>
+<p>To give an example of how easy it is to configure your DNS records based on Migadu instructions is:</p>
+<ul>
+<li>
+<p>First is a verification TXT record for uniquely identifying your domain:</p>
+<pre class="z-code"><code><span class="z-text z-plain">Record Type | Name/Address | Value
+</span><span class="z-text z-plain">     TXT    |      @       | hosted-email-verify=&lt;verification_code&gt;
+</span></code></pre>
+</li>
+<li>
+<p>Then add MX records to route addresses to Migadu host:</p>
+<pre class="z-code"><code><span class="z-text z-plain">Record Type | Name/Address | Value             | Priority
+</span><span class="z-text z-plain">    MX      |      @       | aspmx1.migadu.com | 10
+</span><span class="z-text z-plain">    MX      |      @       | aspmx2.migadu.com | 20
+</span></code></pre>
+</li>
+<li>
+<p>Add DKIM + ARC key records for authenticating the email’s integrity:</p>
+<pre class="z-code"><code><span class="z-text z-plain">Record Type | Name/Address    | Value
+</span><span class="z-text z-plain">   CNAME    | key1._domainkey | key1.&lt;domain_name&gt;._domainkey.migadu.com.
+</span><span class="z-text z-plain">   CNAME    | key2._domainkey | key2.&lt;domain_name&gt;._domainkey.migadu.com.
+</span><span class="z-text z-plain">   CNAME    | key3._domainkey | key3.&lt;domain_name&gt;._domainkey.migadu.com.
+</span></code></pre>
+</li>
+<li>
+<p>Add SPF Record of type TXT and DMARC record which is designed to prevent email forging in combination with DMARC:</p>
+<pre class="z-code"><code><span class="z-text z-plain">Record Type | Name/Address    | Value
+</span><span class="z-text z-plain">   TXT      |      @          | v=spf1 include:spf.migadu.com -all
+</span><span class="z-text z-plain">   TXT      |   _dmarc        | v=DMARC1;
+</span><span class="z-text z-plain">			      | p=quarantine; 
+</span><span class="z-text z-plain">
+</span></code></pre>
+</li>
+</ul>
+<p>There are some optional features for some clients and service discovery which you can set up similarly following the Migadu instructions if you need those.</p>
+<h2 id="step-3-verify">Step 3: Verify!</h2>
+<p>Once the records are added, click on the Check Configuration button near the top of the instructions page in Migadu, which will probably send you to the login page due to session timeout. That is okay. After logging in again, you’ll either be told it’s already up, because Migadu checks the domain records after accessing domain setup page again, or you’ll see that some of the records are updated while others are not. That is also fine, if you have added the records correctly. DNS record propagation takes time, so check back in a few minutes, or hours if it is taking longer - it varies how long it takes but can take up to a day or more.</p>
+<h2 id="step-4-add-email-addresses">Step 4: Add email addresses</h2>
+<p>Once your domain is configured though, you can go to Mailboxes &gt; New Mailbox and create an email address as you want to call it, and as you want to authenticate it. Set an initial password, or send password setting link to an email, it’s up to you!</p>
+<img class="no-hover"alt="This is an image"src="domain_form.png"/><h2 id="that-s-it">That’s it!</h2>
+<p>And that’s it. You can log into the email address from <a href="https://mikhailskorikov.com/domain-emails/webmail.migadu.com">Migadu Webmail</a>. That part is not explicitly stated if you set your initial password, but email invitations have instructions to do so.</p>
+<p>You can also use your own email clients to set up email receiving and sending as an alternative to Migadu Webmail. Migadu has guides on how to set those up <a href="https://migadu.com/guides/">here</a>.</p>
+
+</article>
+		
+	<span id="copy-code-text" class="hidden">Copy Code</span>
+	<span id="search-index" class="hidden">https://mikhailskorikov.com/search_index.en.json</span>
+	<span id="more-matches-text" class="hidden">$MATCHES more matches</span>
+
+	</main>
+	<footer id="site-footer">
+			<p>&copy; Mikhail Skorikov, 2025</p>
+		<ul id="socials">
+				<li>
+					<a href="https://github.com/mikhail-skorikov" rel=" me" title="GitHub">
+						<i class="icon" style='--icon: url("data:image/svg+xml,%3Csvg role=&#x27;img&#x27; viewBox=&#x27;0 0 24 24&#x27; xmlns=&#x27;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#x27;%3E%3Ctitle%3EGitHub%3C&#x2F;title%3E%3Cpath d=&#x27;M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12&#x27;&#x2F;%3E%3C&#x2F;svg%3E")'></i>
+						<span>GitHub</span>
+					</a>
+				</li>
+		</ul>
+</footer>
+
+
+</body>
+</html>
