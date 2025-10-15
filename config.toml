@@ -25,8 +25,8 @@ smart_punctuation = true
 bottom_footnotes = true
 
 [search]
-# index_format = "elasticlunr_json"
-index_format = "fuse_json"
+index_format = "elasticlunr_json"
+# index_format = "fuse_json"
 
 [extra]
 # default_theme = "dark"
