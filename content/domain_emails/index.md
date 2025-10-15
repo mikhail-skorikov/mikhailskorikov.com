@@ -1,5 +1,5 @@
 +++
-title = "How to set up email addresses for your own domain for cheap"
+title = "How to set up email addresses for your own domain for cheap!"
 date = 2025-09-18
 authors = ["Mikhail Skorikov"]
 description = "Easy (and cheap!) setup guide to your own domain email addresses."
