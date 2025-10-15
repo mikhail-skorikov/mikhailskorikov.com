@@ -1,0 +1,3 @@
+[submodule "themes/duckquill"]
+	path = themes/duckquill
+	url = https://github.com/PsypherPunk/duckquill.git
